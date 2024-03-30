@@ -1,0 +1,19 @@
+
+.table-header th,
+.table-content td {
+    padding: .85rem;
+    text-align: center;
+}
+
+
+.sidebar .nav-link.active,
+.sidebar .nav-link.active i {
+    background-color: #20a8d8;
+    color: #fff;
+}
+
+.sidebar .nav-link:hover:not(.active),
+.sidebar .nav-link:hover:not(.active) i {
+    background-color: #4a7b8d;
+    color: #fff;
+}
