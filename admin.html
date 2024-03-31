@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
     <link rel="stylesheet" href="./admin.css">
+    <!-- Load font awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        crossorigin="anonymous">
+    <!-- simple line   -->
+    <link rel='stylesheet'
+        href='https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.2.4/css/simple-line-icons.min.css' />
+    <!--ionicon link-->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+
+    <!-- Chart JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 </head>
 
 <body>
@@ -61,6 +73,25 @@
             </div>
 
         </div>
+
+        <div class="sanpham">
+            <table class="table-header">
+                <tr>
+                    <th style="width: 5%">No.</th>
+                    <th style="width: 10%">Code</th>
+                    <th style="width: 40%">Name</th>
+                    <th style="width: 15%">Price</th>
+                    <th style="width: 15%">Promo</th>
+                    <th style="width: 15%">Action</th>
+                </tr>
+            </table>
+
+            <div class="table-content"></div>
+            
+            <div id="khungSuaSanPham" class="overlay"></div>
+        </div>
+
+        
     </div>
 
     <script src="./admin.js"></script>
