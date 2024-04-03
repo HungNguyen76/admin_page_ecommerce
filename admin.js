@@ -113,14 +113,14 @@ function addTableKhachHang() {
         var u = listUser[i]
         s += `
         <tr>
-            <td style="width: 5%">` + (i + 1) + `</td>
-            <td style="width: 15%">` + u.ho + ' ' + u.ten + `</td>
-            <td style="width: 20%">` + u.email + `</td>
-            <td style="width: 20%">` + u.username + `</td>
-            <td style="width: 10%">` + u.pass + `</td>
+            <td style="width: 5%">${i + 1}</td>
+            <td style="width: 15%">${u.ho} ${u.ten}</td>
+            <td style="width: 20%">${u.email}</td>
+            <td style="width: 20%">${u.username}</td>
+            <td style="width: 10%">${u.pass}</td>
             <td style="width: 10%">
                 <div class="tooltip">
-                    <button onclick="deleteUser('`+ u.username + `')">Delete</i>
+                    <button onclick="deleteUser('${u.username}')">Delete</i>
                 </div>
             </td>
         </tr>`
@@ -208,15 +208,15 @@ function addKhungSuaSanPham(masp) {
     <span class="close" onclick="this.parentElement.style.transform = 'scale(0)';">&times;</span>
     <table class="overlayTable table-outline table-content table-header">
         <tr>
-            <th colspan="2">`+ sp.name + `</th>
+            <th colspan="2">${sp.name}</th>
         </tr>
         <tr>
             <td>Product Code:</td>
-            <td><input type="text" value="`+ sp.masp + `"></td>
+            <td><input type="text" value="${sp.masp}"></td>
         </tr>
         <tr>
             <td>Product Name:</td>
-            <td><input type="text" value="`+ sp.name + `"></td>
+            <td><input type="text" value="${sp.name}"></td>
         </tr>
         <tr>
             <td>Type:</td>
@@ -227,8 +227,8 @@ function addKhungSuaSanPham(masp) {
     var company = ["Mac", "Iphone", "Airpods", "Ipad", "Watch"];
     for (var c of company) {
         if (sp.company == c)
-            s += (`<option value="` + c + `" selected>` + c + `</option>`);
-        else s += (`<option value="` + c + `">` + c + `</option>`);
+            s += (`<option value="${c}" selected>${c}</option>`);
+        else s += (`<option value="${c}">${c}</option>`);
     }
 
     s += `
@@ -238,23 +238,23 @@ function addKhungSuaSanPham(masp) {
         <tr>
             <td>Image:</td>
             <td>
-                <img style="width:30%" class="hinhDaiDien" id="anhDaiDienSanPhamSua" src="`+ sp.img + `">
+                <img style="width:30%" class="hinhDaiDien" id="anhDaiDienSanPhamSua" src="${sp.img}">
                 <input type="file" accept="image/*" onchange="capNhatAnhSanPham(this.files, 'anhDaiDienSanPhamSua')">
             </td>
         </tr>
         <tr>
             <td>Price (Integer):</td>
-            <td><input type="text" value="`+ stringToNum(sp.price) + `"></td>
+            <td><input type="text" value="${stringToNum(sp.price)}"></td>
         </tr>
         <tr>
             <td>Star (0->5) :</td>
-            <td><input type="text" value="`+ sp.star + `"></td>
+            <td><input type="text" value="${sp.star}"></td>
         </tr>
         <tr>
             <td>Rated:</td>
-            <td><input type="text" value="`+ sp.rateCount + `"></td>
+            <td><input type="text" value="${sp.rateCount}"></td>
         </tr>
-        <td colspan="2"  class="table-footer"> <button onclick="suaSanPham('`+ sp.masp + `')">Edit</button> </td>
+        <td colspan="2"  class="table-footer"> <button onclick="suaSanPham('${sp.masp}')">Edit</button> </td>
     </table>`
     console.log("s", s)
     var khung = document.getElementById('khungSuaSanPham');
