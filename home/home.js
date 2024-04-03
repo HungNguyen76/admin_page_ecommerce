@@ -1,3 +1,4 @@
+
 // Khởi tạo tài khoản Admin
 var adminInfo = [{
     "username": "admin",
@@ -19,45 +20,41 @@ function equalUser(u1, u2) {
 }
 
 function logIn(form) {
-    console.log('vafo');
-    // form.preventDefault();
-    // Lấy dữ liệu từ form
     var name = form.username.value;
     var pass = form.pass.value;
-    console.log("pass")
-    var newUser = new User(name, pass);
+    var newUser = { "username": name, "pass": pass }
 
     // Lấy dữ liệu từ danh sách người dùng localstorage
     var listUser = getListUser();
-    console.log("listUser", listUser)
+
     // Kiểm tra xem dữ liệu form có khớp với người dùng nào trong danh sách ko
-    // for (var u of listUser) {
-    //     if (equalUser(newUser, u)) {
-    //         if(u.off) {
-    //             alert('This account is locked by Admin. Can not login!!');
-    //             return false;
-    //         }
+    for (var u of listUser) {
+        if (equalUser(newUser, u)) {
+            if(u.off) {
+                alert('This account is locked by Admin. Can not login!!');
+                return false;
+            }
 
-    //         setCurrentUser(u);
+            setCurrentUser(u);
 
-    //         // Reload lại trang -> sau khi reload sẽ cập nhật luôn giỏ hàng
-    //         location.reload();
-    //         return false;
-    //     }
-    // }
+            // Reload lại trang -> sau khi reload sẽ cập nhật luôn giỏ hàng
+            location.reload();
+            return false;
+        }
+    }
 
     // Đăng nhập vào admin
-    // for (var ad of adminInfo) {
-    //     if (equalUser(newUser, ad)) {
-    //         alert('Welcome back Admin!');
-    //         window.localStorage.setItem('admin', true);
-    //         window.location.href = "../admin/admin.html"
-    //         return false;
-    //     }
-    // }
+    for (var ad of adminInfo) {
+        if (equalUser(newUser, ad)) {
+            alert('Welcome back Admin!');
+            window.localStorage.setItem('admin', true);
+            window.location.href = "../admin/admin.html"
+            return false;
+        }
+    }
 
     // Trả về thông báo nếu không khớp
     alert('Enter wrong name or password !!!');
     form.username.focus();
-    // return false;
+    return false;
 }
