@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- Load font awesome icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		crossorigin="anonymous">
+	<!-- simple line   -->
+	<link rel='stylesheet'
+		href='https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.2.4/css/simple-line-icons.min.css' />
+</head>
+<body>
+    <h1>Home Page</h1>
+    <form class="login-form" onsubmit="return logIn(this); ">
+        <h2>Login</h2>
+        <div class="form-input-material">
+            <label>
+                Username<span class="req">*</span>
+            </label>
+            <input name='username' class="form-control-material" type="text" required autocomplete="off" />
+        </div> <!-- /user name -->
+
+        <div class="form-input-material">
+            <label>
+                Password<span class="req">*</span>
+            </label>
+            <input name="pass" class="form-control-material" type="password" required autocomplete="off" />
+        </div> 
+        <!-- pass -->
+
+        <button type="submit" class="btn btn-primary btn-ghost" />Login</button>
+
+    </form>
+
+    <script src="./home.js"></script>
+</body>
+</html>
