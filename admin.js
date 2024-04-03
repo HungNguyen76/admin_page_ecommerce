@@ -5,9 +5,7 @@ const adminInfo = {
 
 localStorage.setItem("admin", JSON.stringify(adminInfo))
 
-window.onload = function () {
-    // list_products = getListProducts() || list_products;
-    
+window.onload = function () {    
     addEventChangeTab();
 
     if (localStorage.getItem('admin')) {
@@ -72,12 +70,10 @@ function addEventChangeTab() {
                 turnOff_Active()
                 this.classList.add('active')
                 var tab = this.childNodes[0].data.trim()
-                // console.log("tab", tab)
                 openTab(tab)
             })
         }
     }
-    // console.log(list_a)
 }
 function turnOff_Active() {
     var sidebar = document.getElementsByClassName('sidebar')[0];
@@ -104,11 +100,8 @@ function openTab(nameTab) {
 
 function addTableKhachHang() {
     var tc = document.getElementsByClassName('khachang')[0].getElementsByClassName('table-content')[0]
-    console.log("tableContent", tc)
-
     var s = `<table class="table-outline hideImg">`
     var listUser = getListUser()
-    console.log("listUser", listUser)
     for (var i = 0; i < listUser.length; i++) {
         var u = listUser[i]
         s += `
@@ -137,8 +130,6 @@ function deleteUser(account) {
     if (window.confirm('Confirm delete all "' + account + '" Account ?')) {
         var listUser = getListUser()
         for (var i = 0; i < listUser.length; i++) {
-            console.log("listUser[i].username", listUser[i].username)
-            console.log("account", account)
             if (listUser[i].username == account) {
                 listUser.splice(i, 1)
                 setListUser(listUser)
@@ -152,10 +143,8 @@ function deleteUser(account) {
 
 function addTableProducts() {
     var tc = document.getElementsByClassName('sanpham')[0].getElementsByClassName('table-content')[0]
-    console.log("tc", tc)
     var s = `<table class="table-outline">`
     var list_products = JSON.parse(localStorage.getItem('ListProducts'));
-    console.log("list_products", list_products)
     for (var i = 0; i < list_products.length; i++) {
         var p = list_products[i]
         console.log("p", p)
@@ -203,7 +192,6 @@ function addKhungSuaSanPham(masp) {
             sp = p;
         }
     }
-    console.log("sp", sp)
     var s = `
     <span class="close" onclick="this.parentElement.style.transform = 'scale(0)';">&times;</span>
     <table class="overlayTable table-outline table-content table-header">
@@ -256,7 +244,6 @@ function addKhungSuaSanPham(masp) {
         </tr>
         <td colspan="2"  class="table-footer"> <button onclick="suaSanPham('${sp.masp}')">Edit</button> </td>
     </table>`
-    console.log("s", s)
     var khung = document.getElementById('khungSuaSanPham');
     khung.innerHTML = s;
     khung.style.transform = 'scale(1)';
