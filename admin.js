@@ -170,6 +170,7 @@ function addTableProducts() {
 }
 
 function promoToStringValue(pr) {
+    console.log("pr", pr)
     switch (pr.name) {
         case 'tragop':
             return 'Inst ' + pr.value + '%';
@@ -242,13 +243,155 @@ function addKhungSuaSanPham(masp) {
             <td>Rated:</td>
             <td><input type="text" value="${sp.rateCount}"></td>
         </tr>
+        <tr>
+            <td>Promo:</td>
+            <td>
+                <select>
+                    <option value="">none</option>
+                    <option value="tragop" ${sp.promo.name == 'tragop' ? 'selected' : ''}>Installment</option>
+                    <option value="giamgia" ${sp.promo.name == 'giamgia' ? 'selected' : ''}>Discount</option>
+                    <option value="giareonline" ${sp.promo.name == 'giareonline' ? 'selected' : ''}>Shockings Prices Online</option>
+                    <option value="moiramat" ${sp.promo.name == 'moiramat' ? 'selected' : ''}>New</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+        <td>Promo value:</td>
+        <td>
+            <input type="text" value=" ${sp.promo.value}">
+        </td>
+    </tr>
         <td colspan="2"  class="table-footer"> <button onclick="suaSanPham('${sp.masp}')">Edit</button> </td>
     </table>`
     var khung = document.getElementById('khungSuaSanPham');
     khung.innerHTML = s;
     khung.style.transform = 'scale(1)';
 }
+let previewSrc;
+// Update products picture
+function capNhatAnhSanPham(files, id) {
+
+    const reader = new FileReader();
+    reader.addEventListener("load", function () {
+       
+        previewSrc = reader.result;
+        document.getElementById(id).src = previewSrc;
+    }, false);
+
+    if (files[0]) {
+        reader.readAsDataURL(files[0]);
+    }
+}
 
 function stringToNum(str, char) {
     return Number(str.split(char || '.').join(''));
+}
+function numToString(num, char) {
+    return num.toLocaleString().split(',').join(char || '.');
+}
+
+function layThongTinProductTuTable(id) {
+    var khung = document.getElementById(id)
+    var tr = khung.getElementsByTagName("tr")
+    var masp = tr[1].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
+    var name = tr[2].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
+    var company = tr[3].getElementsByTagName('td')[1].getElementsByTagName('select')[0].value;
+    var price = tr[5].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
+    var star = tr[6].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
+    var rateCount = tr[7].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
+    var promoName = tr[8].getElementsByTagName('td')[1].getElementsByTagName('select')[0].value;
+    var promoValue = tr[9].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
+    if(isNaN(price)) {
+        alert("Price must be an integer")
+        return false
+    }
+
+    if (isNaN(star)) {
+        alert('Star (0->5) must be an integer');
+        return false;
+    }
+
+    if (isNaN(rateCount)) {
+        alert('Rated number must be an integer');
+        return false;
+    }
+    try {
+        return {
+            "masp": masp,
+            "name": name,
+            "company": company,
+            "img": previewSrc,
+            "price": numToString(Number.parseInt(price, 10)),
+            "star": Number.parseInt(star, 10),
+            "rateCount": Number.parseInt(rateCount, 10),
+            "promo": {
+                "name": promoName,
+                "value": promoValue
+            },
+        }
+    } catch (e) {
+        alert('Error: ' + e.toString());
+        return false;
+    }
+}
+
+function setListProducts(newList) {
+    localStorage.setItem('ListProducts', JSON.stringify(newList));
+}
+
+// Chỉnh sửa sản phẩm
+function suaSanPham(masp) {
+    var sp = layThongTinProductTuTable('khungSuaSanPham');
+    console.log("masp", masp)
+    console.log("sp", sp)
+    if (!sp) return;
+
+    var list_products = JSON.parse(localStorage.getItem('ListProducts'));
+
+    for (var p of list_products) {
+        if (p.masp == masp && p.masp != sp.masp) {
+            console.log("p.masp", p.masp, sp.masp)
+            alert('Product Code is duplicated !!');
+            return false;
+        }
+
+        if (p.name == sp.name && p.masp != sp.masp) {
+            alert('Products name is duplicated !!');
+            return false;
+        }
+    }
+
+    for (var i = 0; i < list_products.length; i++) {
+        if (list_products[i].masp == masp) {
+            list_products[i] = sp;
+        }
+    }
+
+    // Save to localstorage
+    setListProducts(list_products);
+
+    // Redraw table
+    addTableProducts();
+
+    alert('Edit ' + sp.name + ' successful');
+
+    document.getElementById('khungSuaSanPham').style.transform = 'scale(0)';
+}
+
+//Xoá sản phẩm
+function deleteProduct(masp, tensp) {
+    if (window.confirm('Delete this? Are you sure?  ' + tensp+' ?')) {
+    var listProducts = JSON.parse(localStorage.getItem("ListProducts"))
+
+    for (var i = 0; i < listProducts.length; i++) {
+        if(listProducts[i].masp == masp) {
+            listProducts.splice(i, 1)
+        }
+    }
+     // Save to localstorage
+     setListProducts(listProducts);
+
+     // Redraw table
+     addTableProducts();
+    }
 }
