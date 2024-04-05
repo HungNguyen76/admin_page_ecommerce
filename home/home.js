@@ -7,16 +7,16 @@ var adminInfo = [{
 
 // Hàm get set cho danh sách người dùng
 function getListUser() {
-    var data = JSON.parse(window.localStorage.getItem('ListUser')) || []
-    var l = [];
-    for (var d of data) {
-        l.push(d);
+    var listUserStorage = JSON.parse(window.localStorage.getItem('ListUser')) || []
+    var listUser = [];
+    for (var user of listUserStorage) {
+        listUser.push(user);
     }
-    return l;
+    return listUser;
 }
 
-function equalUser(u1, u2) {
-	return (u1.username == u2.username && u1.pass == u2.pass);
+function equalUser(user1, user2) {
+	return (user1.username == user2.username && user1.pass == user2.pass);
 }
 
 function logIn(form) {
@@ -30,13 +30,7 @@ function logIn(form) {
     // Kiểm tra xem dữ liệu form có khớp với người dùng nào trong danh sách ko
     for (var u of listUser) {
         if (equalUser(newUser, u)) {
-            if(u.off) {
-                alert('This account is locked by Admin. Can not login!!');
-                return false;
-            }
-
             setCurrentUser(u);
-
             // Reload lại trang -> sau khi reload sẽ cập nhật luôn giỏ hàng
             location.reload();
             return false;
