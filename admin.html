@@ -89,6 +89,88 @@
 
             <div class="table-content"></div>
             
+            <div class="table-footer">
+                <select name="kieuTimSanPham">
+                    <option value="ma">Search by ID </option>
+                    <option value="ten">Search by Name </option>
+                </select>
+                <input type="text" placeholder="Search..." onkeyup="timKiemSanPham(this)">
+                <button
+                    onclick="document.getElementById('khungThemSanPham').style.transform = 'scale(1)'; autoMaProduct()">
+                    <i class="fa fa-plus-square"></i>
+                    Add Products
+                </button>
+            </div>
+
+             <div id="khungThemSanPham" class="overlay">
+                <span class="close" onclick="this.parentElement.style.transform = 'scale(0)';">&times;</span>
+                <table class="overlayTable table-outline table-content table-header">
+                    <tr>
+                        <th colspan="2">Add Product</th>
+                    </tr>
+                    <tr>
+                        <td>Product Code:</td>
+                        <td><input type="text" id="maspThem"></td>
+                    </tr>
+                    <tr>
+                        <td>Name Products:</td>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td>Type:</td>
+                        <td>
+                            <select name="chooseType" onchange="autoMaProduct(this.value)">
+                                <script>
+                                    var type = ["Mac", "Iphone", "Airpods", "Ipad", "Watch"];
+                                    for (var c of type) {
+                                        document.writeln(`<option value="` + c + `">` + c + `</option>`);
+                                    }
+                                </script>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Image:</td>
+                        <td>
+                            <img class="hinhDaiDien" id="anhDaiDienProductThem" src="">
+                            <input type="file" accept="image/*"
+                                onchange="capNhatAnhSanPham(this.files, 'anhDaiDienProductThem')">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Price:</td>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td>Star (0->5) :</td>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td>Rated:</td>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td>Promo:</td>
+                        <td>
+                            <select>
+                                <option value="">None</option>
+                                <option value="tragop">Installment</option>
+                                <option value="giamgia">Discount</option>
+                                <option value="giareonline">Shockings Prices Online</option>
+                                <option value="moiramat">New</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Promo value:</td>
+                        <td><input type="text" placeholder=""></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-footer"> <button onclick="addProduct()">ADD</button> </td>
+                    </tr>
+                </table>
+            </div>
+
             <div id="khungSuaSanPham" class="overlay"></div>
         </div>
 

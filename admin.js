@@ -395,3 +395,71 @@ function deleteProduct(masp, tensp) {
      addTableProducts();
     }
 }
+
+
+
+// Create Product code
+function autoMaProduct(company) {
+    
+    if (!company) company = document.getElementsByName('type')[0].value;
+    var index = 0;
+    for (var i = 0; i < list_products.length; i++) {
+        if (list_products[i].type == type) {
+            index++;
+        }
+    }
+    document.getElementById('maspThem').value = type.substring(0, 3) + index;
+}
+
+function addProduct() {
+    var newSp = layThongTinProductTuTable("khungThemSanPham")
+    console.log("newSp", newSp)
+    if(!newSp) return;
+    var list_products = JSON.parse(localStorage.getItem('ListProducts'));
+
+    for(var p of list_products) {
+        if(p.masp == newSp.masp) {
+            alert('Product Code is duplicated!')
+            return false
+        }
+        if(p.name == newSp.name) {
+            alert('Product Name is duplicated!')
+            return false
+        }
+    }
+    //add product to list_products
+    list_products.push(newSp)
+
+    //save new products to local
+    setListProducts(list_products)
+
+    //ghi lại table
+    addTableProducts()
+
+    alert('Add products "' + newSp.name + '" successful.')
+
+    document.getElementById("khungThemSanPham").style.transform = 'scale(0)'
+}
+
+function timKiemSanPham(inp) {
+    var kieuTim = document.getElementsByName("kieuTimSanPham")[0].value
+    console.log("kieuTim", kieuTim)
+    var text = inp.value
+    console.log("text", text)
+
+    var vitriKieuTim = { 'ma': 1, 'ten': 2}
+    
+    var listTr_table = document.getElementsByClassName("sanpham")[0].getElementsByClassName("table-content")[0].getElementsByTagName("tr")
+    console.log("listTr_table", listTr_table)
+    for (var tr of listTr_table) {
+        console.log("tr", tr)
+        var td = tr.getElementsByTagName("td")[vitriKieuTim[kieuTim]].innerHTML.toLowerCase()
+
+        if(td.indexOf(text.toLowerCase()) < 0) {
+            tr.style.display = "none"
+        } else {
+            tr.style.display = ''
+        }
+       
+    }
+}
